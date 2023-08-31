@@ -32,7 +32,12 @@ class RedactingFormatter(logging.Formatter):
 
     def format(self, record: logging.LogRecord) -> str:
         ''' formating the log message '''
+ 
+        # Let's first get the default --log message formatting-- provided
+        # + by the ----logging module----
         log_message = super().format(record)
+
+        # Then using filter_datum function we reformat the message
         log_message = filter_datum(
             self.fields, self.REDACTION, log_message, self.SEPARATOR
         )
