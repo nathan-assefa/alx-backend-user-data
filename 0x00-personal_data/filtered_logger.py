@@ -3,6 +3,8 @@
 import re
 from typing import List
 import logging
+from os import getenv
+import mysql.connector
 
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
@@ -72,11 +74,9 @@ def get_logger() -> logging.Logger:
     return logger
 
 
+'''
 def get_db():
-    ''' Getting values of envionment varibales using os module getenv '''
-
-    import os
-
+    #Getting values of envionment varibales using os module getenv
     db_username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     db_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
     db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
@@ -93,3 +93,15 @@ def get_db():
         return db_connection
     except Exception:
         pass
+
+'''
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    db_connection = mysql.connector.connection.MySQLConnection(
+        user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=getenv('PERSONAL_DATA_DB_NAME'))
+
+    return db_connection
