@@ -3,7 +3,7 @@
 import re
 from typing import List
 import logging
-from os import getenv
+import os
 import mysql.connector
 
 
@@ -74,34 +74,18 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-'''
 def get_db():
-    #Getting values of envionment varibales using os module getenv
+    ''' Getting values of envionment varibales using os module getenv '''
     db_username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     db_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
     db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     db_name = os.getenv("PERSONAL_DATA_DB_NAME")
 
     # Create a connection to the database using mysql.connector
-    try:
-        db_connection = mysql.connector.connection.MySQLConnection(
-            host=db_host,
-            user=db_username,
-            password=db_password,
-            database=db_name
-        )
-        return db_connection
-    except Exception:
-        pass
-
-'''
-
-
-def get_db() -> mysql.connector.connection.MySQLConnection:
     db_connection = mysql.connector.connection.MySQLConnection(
-        user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
-        password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
-        host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
-        database=getenv('PERSONAL_DATA_DB_NAME'))
-
+        host=db_host,
+        user=db_username,
+        password=db_password,
+        database=db_name
+    )
     return db_connection
