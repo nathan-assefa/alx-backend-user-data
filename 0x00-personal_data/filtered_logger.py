@@ -49,15 +49,20 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     ''' Creating logger object and customize it '''
-    # Create a logger named "user_data"
+    # First let's create a logger instance named "user_data"
     logger = logging.getLogger("user_data")
-    logger.setLevel(logging.INFO)  # Limit the log level to INFO
 
-    # Prevent messages from propagating to other loggers
+    # Then we need to limit severity level(order of importance)
+    logger.setLevel(logging.INFO)
+
+    # Prevent messages from propagating to other loggers(parent or child)
     logger.propagate = False
 
     # Create a StreamHandler with RedactingFormatter as formatter
-    stream_handler = StreamHandler()
+    # This is what sends the log to the screen
+    stream_handler = logging.StreamHandler()
+
+    # parameterizing the formmater
     redacting_formatter = RedactingFormatter(fields=PII_FIELDS)
     stream_handler.setFormatter(redacting_formatter)
 
