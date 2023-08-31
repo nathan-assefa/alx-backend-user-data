@@ -84,7 +84,7 @@ def get_db():
 
     # Create a connection to the database using mysql.connector
     try:
-        db_connection = mysql.connector.connect(
+        db_connection = mysql.connector.connection.MySQLConnection(
             host=db_host,
             user=db_username,
             password=db_password,
