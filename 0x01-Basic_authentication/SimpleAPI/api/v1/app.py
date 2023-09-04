@@ -18,6 +18,9 @@ AUTH_TYPE = os.environ.get("AUTH_TYPE")
 if AUTH_TYPE == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
+elif AUTH_TYPE == 'basic_auth':
+    from api.v1.auth.basic_auth import BasicAuth
+    auth = BasicAuth()
 
 
 @app.errorhandler(404)
@@ -67,8 +70,6 @@ def before_request_handler():
 
     if not auth.current_user(request):
         abort(403)
-
-
 
 
 if __name__ == "__main__":
