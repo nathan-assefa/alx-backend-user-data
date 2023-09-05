@@ -57,7 +57,7 @@ class BasicAuth(Auth):
             return None, None
 
         # Split the decoded header into email and password using ':'
-        credentials = decoded_base64_authorization_header.split(':')
+        credentials = decoded_base64_authorization_header.split(':', 1)
 
         if len(credentials) != 2:
             return None, None
