@@ -57,12 +57,12 @@ def before_request_handler():
             '/api/v1/unauthorized/',
             '/api/v1/forbidden/'
             ]
-    
+
     # here using the request_auth method, we first check if
     # + request.path is not in excluded paths
     if not auth.require_auth(request.path, excluded_paths):
         return
-    
+
     # we then check if the request contains the header
     # + authorization
     if not auth.authorization_header(request):
