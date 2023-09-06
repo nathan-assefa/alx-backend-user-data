@@ -43,3 +43,17 @@ class Auth:
         to retrieve information about the current user
         """
         return None
+
+    def session_cookie(self, request=None):
+        """This method returns a cookie value from a request"""
+        import os
+
+        if not request:
+            return None
+        # Get the session cookie name from the SESSION_NAME
+        # + environment variable
+        session_cookie_name = os.environ.get("SESSION_NAME")
+
+        # Use .get() to access the cookie value from the
+        # + request cookies dictionary
+        return request.cookies.get(session_cookie_name)

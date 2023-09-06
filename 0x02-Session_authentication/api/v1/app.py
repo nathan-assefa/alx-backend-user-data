@@ -21,6 +21,12 @@ if AUTH_TYPE == 'auth':
 elif AUTH_TYPE == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
+elif AUTH_TYPE == 'session_auth':
+    from api.v1.auth.session_auth import SessionAuth
+    auth = SessionAuth()
+elif AUTH_TYPE == 'session_exp_auth':
+    from api.v1.auth.session_exp_auth import SessionExpAuth
+    auth = SessionExpAuth()
 
 
 @app.errorhandler(404)
@@ -55,7 +61,8 @@ def before_request_handler():
     excluded_paths = [
             '/api/v1/status/',
             '/api/v1/unauthorized/',
-            '/api/v1/forbidden/'
+            '/api/v1/forbidden/',
+            '/api/v1/auth_session/login/'
             ]
 
     # here using the request_auth method, we first check if
@@ -64,12 +71,15 @@ def before_request_handler():
         return
 
     # we then check if the request contains the header
-    # + authorization
-    if not auth.authorization_header(request):
+    # + authorization and the cookie
+    if not auth.authorization_header(request) and\
+       not auth.session_cookie(request):
         abort(401)
 
     if not auth.current_user(request):
         abort(403)
+
+    request.current_user = auth.current_user(request)
 
 
 if __name__ == "__main__":
