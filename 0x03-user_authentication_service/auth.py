@@ -5,14 +5,11 @@ import bcrypt
 from user import User
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
-from typing import TypeVar, Union
+from typing import Union
 
 
 from db import DB
 from uuid import uuid4
-
-
-U = TypeVar(User)
 
 
 def _hash_password(password: str) -> bytes:
@@ -76,35 +73,18 @@ class Auth:
             return None
 
     def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
-        """
-        Takes a session_id and returns the corresponding user, if one exists,
-        else returns None
-        Args:
-            session_id (str): session id for user
-        Return:
-            user object if found, else None
-        """
-        if session_id is None:
+        """ Finding a user via session_id """
+        if not session_id:
             return None
-
         try:
             user = self._db.find_user_by(session_id=session_id)
+            return user
         except NoResultFound:
             return None
 
-        return user
-
     def destroy_session(self, user_id: int) -> None:
-        """
-        Take a user_id and destroy that user's session and update their
-        session_id attribute to None
-        Args:
-            user_id (int): user's id
-        Return:
-            None
-        """
+        """ Removing session from the user object """
         try:
-            self._db.update_user(user_id, session_id=None)
-        except ValueError:
+            self._db.update_user(user.id, session_id=None)
+        except (InvalidRequestError, NoResultFound, ValueError):
             return None
-        return None
