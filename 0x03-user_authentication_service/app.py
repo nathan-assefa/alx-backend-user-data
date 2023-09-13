@@ -1,6 +1,13 @@
 #!/usr/bin/env python3
 """ Basic flask app """
-from flask import Flask, jsonify, request, abort, redirect
+from flask import(
+        Flask,
+        jsonify,
+        request,
+        abort,
+        redirect,
+        make_response
+        )
 from auth import Auth
 
 
@@ -66,6 +73,8 @@ def logout():
 
     if user:
         AUTH.destroy_session(user.id)
+        
+        response = make_response(redirect(url_for('/')))
 
         response.delete_cookie('session_id')
 
