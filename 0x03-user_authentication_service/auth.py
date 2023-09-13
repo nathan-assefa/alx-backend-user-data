@@ -84,6 +84,7 @@ class Auth:
             return None
 
     def destroy_session(self, user_id: int) -> None:
+        """ Removing session from the user object """
         try:
             self._db.update_user(user.id, session_id=None)
         except (InvalidRequestError, NoResultFound, ValueError):
