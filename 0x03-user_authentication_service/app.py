@@ -77,7 +77,7 @@ def logout():
 
         response = make_response(redirect(url_for("/")))
 
-        response.delete_cookie("session_id")
+        AUTH.destroy_session(user.id)
 
         return response
     else:
