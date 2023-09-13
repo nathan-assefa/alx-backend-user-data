@@ -73,7 +73,7 @@ class Auth:
         except (InvalidRequestError, NoResultFound, ValueError):
             return None
 
-    def get_user_from_session_id(self, session_id: str) -> Union[user, None]:
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """ Finding a user via session_id """
         if not session_id:
             return None
