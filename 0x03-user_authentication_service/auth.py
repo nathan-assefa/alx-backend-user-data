@@ -95,11 +95,11 @@ class Auth:
             user = self._db.find_user_by(email=email)
 
             # Generate a new UUID
-            rest_token = _generate_uuid()
+            reset_token = _generate_uuid()
 
             # Update the user's session_id field
-            self._db.update_user(user.id, rest_token=rest_token)
+            self._db.update_user(user.id, reset_token=reset_token)
 
-            return rest_token
+            return reset_token
         except NoResultFound:
             raise ValueError
