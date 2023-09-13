@@ -5,12 +5,14 @@ import bcrypt
 from user import User
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
-from db import DB
-from uuid import uuid4
 from typing import (
     TypeVar,
     Union
 )
+
+
+from db import DB
+from uuid import uuid4
 
 
 def _hash_password(password: str) -> bytes:
