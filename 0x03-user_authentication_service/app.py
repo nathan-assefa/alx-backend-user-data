@@ -33,9 +33,10 @@ def users():
         response_data = {"message": "email already registered"}
         return jsonify(response_data), 400
 
+
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login():
-    """ signing up as user """
+    """signing up as user"""
     email = request.form.get("email")
     password = request.form.get("password")
 
@@ -44,16 +45,14 @@ def login():
 
     session_id = AUTH.create_session(email)
 
-    response = {
-            "email": email,
-            "message": "logged in"
-            }
+    response = {"email": email, "message": "logged in"}
     json_response = jsonify(response)
 
     # create cookie for the response
     json_response.set_cookie("session_id", session_id)
 
     return json_response
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
