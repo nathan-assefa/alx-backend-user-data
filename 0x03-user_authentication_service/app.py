@@ -54,7 +54,7 @@ def login():
     return json_response
 
 
-@app.route('/sessions', methods=['DELETE'])
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     session_id = request.cookies.get('session_id')
 
