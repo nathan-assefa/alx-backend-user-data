@@ -15,6 +15,9 @@ from db import DB
 from uuid import uuid4
 
 
+U = TypeVar(User)
+
+
 def _hash_password(password: str) -> bytes:
     """takes in string and return bytes"""
     salt = bcrypt.gensalt()
