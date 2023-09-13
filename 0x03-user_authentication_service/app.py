@@ -83,7 +83,7 @@ def profile():
 
     if user:
         response = {"email": user.email}
-        return jsonfiy(response), 200
+        return jsonify(response), 200
     abort(403)
 
 
