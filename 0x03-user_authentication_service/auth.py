@@ -88,3 +88,4 @@ class Auth:
             self._db.update_user(user.id, session_id=None)
         except (InvalidRequestError, NoResultFound, ValueError):
             return None
+        return None
