@@ -98,7 +98,7 @@ class Auth:
             rest_token = _generate_uuid()
 
             # Update the user's session_id field
-            self._db.update_user(user.id, session_id=rest_token)
+            self._db.update_user(user.id, rest_token=rest_token)
 
             return rest_token
         except NoResultFound:
