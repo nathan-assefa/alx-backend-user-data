@@ -88,3 +88,18 @@ class Auth:
             self._db.update_user(user_id, session_id=None)
         except (InvalidRequestError, NoResultFound, ValueError):
             return None
+
+    def get_reset_password_toke(self, email: str) -> str:
+        """ reseting user's password """
+        try:
+            user = self._db.find_user_by(email=email)
+
+            # Generate a new UUID
+            rest_token = _generate_uuid()
+
+            # Update the user's session_id field
+            self._db.update_user(user.id, sesssion_id=rest_token)
+
+            return rest_token
+        except NoResultFound:
+            raise ValueError
