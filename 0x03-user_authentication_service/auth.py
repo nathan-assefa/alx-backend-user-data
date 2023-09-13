@@ -86,6 +86,6 @@ class Auth:
         """ Removing session from the user object """
         try:
             self._db.update_user(user.id, session_id=None)
-        except (InvalidRequestError, NoResultFound, ValueError):
+        except ValueError:
             return None
         return None
