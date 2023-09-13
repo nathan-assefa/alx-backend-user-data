@@ -5,10 +5,7 @@ import bcrypt
 from user import User
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
-from typing import (
-    TypeVar,
-    Union
-)
+from typing import TypeVar, Union
 
 
 from db import DB
@@ -49,7 +46,7 @@ class Auth:
             hashed_password = _hash_password(password)
             return self._db.add_user(email, hashed_password)
         raise ValueError(f"User {email} already exists")
-    
+
     '''
     def valid_login(self, email: str, password: str) -> bool:
         """validating a user"""
