@@ -79,7 +79,7 @@ def logout():
 
         response.delete_cookie("session_id")
 
-        return redirect("/")
+        return response
     else:
         abort(403)
 
