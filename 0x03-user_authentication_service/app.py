@@ -77,8 +77,6 @@ def logout():
 
         response = make_response(redirect(url_for("/")))
 
-        AUTH.destroy_session(user.id)
-
         return response
     else:
         abort(403)
