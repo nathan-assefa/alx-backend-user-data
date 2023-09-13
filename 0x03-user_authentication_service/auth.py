@@ -89,7 +89,7 @@ class Auth:
         except (InvalidRequestError, NoResultFound, ValueError):
             return None
 
-    def get_reset_password_toke(self, email: str) -> str:
+    def get_reset_password_token(self, email: str) -> str:
         """ reseting user's password """
         try:
             user = self._db.find_user_by(email=email)
