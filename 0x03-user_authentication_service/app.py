@@ -6,7 +6,6 @@ from flask import (
         request,
         abort,
         redirect,
-        make_response,
         url_for
         )
 from auth import Auth
@@ -67,14 +66,10 @@ def logout():
     """loging out a user"""
     session_id = request.cookies.get("session_id", None)
 
-    #if not session_id:
-        #abort(403)
-
     user = AUTH.get_user_from_session_id(session_id)
 
     if session_id and user:
         AUTH.destroy_session(user.id)
-
         return redirect('/')
     abort(403)
 
